@@ -243,35 +243,34 @@ int main(void)
     }
 
     // --- 4. 显示数据到OLED ---
-    sprintf(temp_str, "%d C", Temperature); // 移除 "Temp: " 标签
-    sprintf(hum_str, "%d %%", Humidity);    // 移除 "Hum: " 标签
-
-    ssd1306_Fill(Black); // 清屏
-
-    // --- 显示图标和数据 ---
-    // 1. 温度 (黄色区域)
-    ssd1306_DrawBitmap(0, 0, icon_temperature, 24, 24, White); // 绘制温度图标
-    ssd1306_SetCursor(30, 5);                                  // 设置文字位置
-    ssd1306_WriteString(temp_str, Font_11x18, White);
-
-    // 2. 湿度 (蓝色区域)
-    ssd1306_DrawBitmap(0, 25, icon_humidity, 24, 24, White); // 绘制湿度图标
-    ssd1306_SetCursor(30, 30);                               // 设置文字位置
-    ssd1306_WriteString(hum_str, Font_11x18, White);
-
-    // 3. 风扇状态 (蓝色区域)
+    sprintf(temp_str, "Temp:%d C", Temperature);
+    sprintf(hum_str, "Hum: %d %%", Humidity);
     if (Temperature > 26)
     {
-      ssd1306_DrawBitmap(0, 50, icon_fan_on, 24, 24, White); // 绘制风扇图标
-      ssd1306_SetCursor(30, 55);                             // 设置文字位置
-      ssd1306_WriteString("ON", Font_7x10, White);
+      sprintf(fan_str, "FAN: ON");
     }
     else
     {
-      // 如果需要，可以在此绘制一个 "OFF" 状态的图标
-      ssd1306_SetCursor(30, 55);
-      ssd1306_WriteString("OFF", Font_7x10, White);
+      sprintf(fan_str, "FAN: OFF");
     }
+
+    ssd1306_Fill(Black); // 清屏
+
+    // --- 显示图标和数据 (最终布局) ---
+    // 1. 温度 (黄色区域)
+    ssd1306_DrawBitmap(0, 0, icon_temperature, 14, 18, White); // 绘制 14x18 温度图标
+    ssd1306_SetCursor(20, 0);                                  // 文字左移
+    ssd1306_WriteString(temp_str, Font_11x18, White);
+
+    // 2. 湿度 (蓝色区域)
+    ssd1306_DrawBitmap(0, 22, icon_humidity, 14, 18, White); // 绘制 14x18 湿度图标
+    ssd1306_SetCursor(20, 24);                               // 文字左移并微调垂直位置
+    ssd1306_WriteString(hum_str, Font_11x18, White);
+
+    // 3. 风扇状态 (蓝色区域)
+    ssd1306_DrawBitmap(0, 45, icon_fan_on, 18, 18, White); // 绘制 18x18 风扇图标
+    ssd1306_SetCursor(20, 50);                             // 文字左移
+    ssd1306_WriteString(fan_str, Font_7x10, White);
 
     ssd1306_UpdateScreen(); // 推送数据到屏幕
 
