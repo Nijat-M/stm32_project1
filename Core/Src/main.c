@@ -1,5 +1,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "icons.h" // 新增的图标头文件
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -242,19 +243,35 @@ int main(void)
     }
 
     // --- 4. 显示数据到OLED ---
-    sprintf(temp_str, "Temp: %d C", Temperature);
-    sprintf(hum_str, "Hum:  %d %%", Humidity);
+    sprintf(temp_str, "%d C", Temperature); // 移除 "Temp: " 标签
+    sprintf(hum_str, "%d %%", Humidity);    // 移除 "Hum: " 标签
 
     ssd1306_Fill(Black); // 清屏
 
-    ssd1306_SetCursor(0, 5); // 第1行
-    ssd1306_WriteString(temp_str, Font_7x10, White);
+    // --- 显示图标和数据 ---
+    // 1. 温度 (黄色区域)
+    ssd1306_DrawBitmap(0, 0, icon_temperature, 24, 24, White); // 绘制温度图标
+    ssd1306_SetCursor(30, 5);                                  // 设置文字位置
+    ssd1306_WriteString(temp_str, Font_11x18, White);
 
-    ssd1306_SetCursor(0, 20); // 第2行
-    ssd1306_WriteString(hum_str, Font_7x10, White);
+    // 2. 湿度 (蓝色区域)
+    ssd1306_DrawBitmap(0, 25, icon_humidity, 24, 24, White); // 绘制湿度图标
+    ssd1306_SetCursor(30, 30);                               // 设置文字位置
+    ssd1306_WriteString(hum_str, Font_11x18, White);
 
-    ssd1306_SetCursor(0, 35); // 第3行 (调试行)
-    ssd1306_WriteString(fan_str, Font_7x10, White);
+    // 3. 风扇状态 (蓝色区域)
+    if (Temperature > 26)
+    {
+      ssd1306_DrawBitmap(0, 50, icon_fan_on, 24, 24, White); // 绘制风扇图标
+      ssd1306_SetCursor(30, 55);                             // 设置文字位置
+      ssd1306_WriteString("ON", Font_7x10, White);
+    }
+    else
+    {
+      // 如果需要，可以在此绘制一个 "OFF" 状态的图标
+      ssd1306_SetCursor(30, 55);
+      ssd1306_WriteString("OFF", Font_7x10, White);
+    }
 
     ssd1306_UpdateScreen(); // 推送数据到屏幕
 
