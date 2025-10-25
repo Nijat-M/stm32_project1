@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "e:/STM32Workspace/olmazbee_project/Core/Inc",
+                "e:/STM32Workspace/olmazbee_project/Drivers/STM32F1xx_HAL_Driver/Inc",
+                "e:/STM32Workspace/olmazbee_project/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+                "e:/STM32Workspace/olmazbee_project/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                "e:/STM32Workspace/olmazbee_project/Drivers/CMSIS/Include"
+            ],
+            "defines": [
+                "DEBUG",
+                "USE_HAL_DRIVER",
+                "STM32F103xB"
+            ],
+            "compilerPath": "E:/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-arm"
+        }
+    ],
+    "version": 4
+}
